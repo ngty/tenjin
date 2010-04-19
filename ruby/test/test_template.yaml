@@ -25,18 +25,18 @@
         <html>
          <body>
           <table>
-        <?rb i = 0 ?>
-        <?rb for item in ['<foo>', 'bar&bar', '"baz"'] ?>
-        <?rb     i += 1 ?>
-        <?rb     if i % 2 == 0 ?>
-        <?rb         color = '#FCF' ?>
-        <?rb     else ?>
-        <?rb         color = '#FFF' ?>
-        <?rb     end ?>
+        {? i = 0 ?}
+        {? for item in ['<foo>', 'bar&bar', '"baz"'] ?}
+        {?     i += 1 ?}
+        {?     if i % 2 == 0 ?}
+        {?         color = '#FCF' ?}
+        {?     else ?}
+        {?         color = '#FFF' ?}
+        {?     end ?}
            <tr bgcolor="#{color}">
             <td>${item}</td>
            </tr>
-        <?rb end ?>
+        {? end ?}
           </table>
          </body>
         </html>
@@ -126,18 +126,18 @@
         <html>
          <body>
           <table>
-        <?rb i = 0 ?>
-        <?rb for item in ['<foo>', 'bar&bar', '"baz"'] ?>
-            <?rb i += 1 ?>
-            <?rb if i % 2 == 0 ?>
-                <?rb color = '#FCF' ?>
-            <?rb else ?>
-                <?rb color = '#FFF' ?>
-            <?rb end ?>
+        {? i = 0 ?}
+        {? for item in ['<foo>', 'bar&bar', '"baz"'] ?}
+            {? i += 1 ?}
+            {? if i % 2 == 0 ?}
+                {? color = '#FCF' ?}
+            {? else ?}
+                {? color = '#FFF' ?}
+            {? end ?}
            <tr bgcolor="#{color}">
             <td>${item}</td>
            </tr>
-        <?rb end ?>
+        {? end ?}
           </table>
          </body>
         </html>
@@ -180,7 +180,7 @@
         <html>
          <body>
           <table>
-        <?rb
+        {?
         i = 0
         for item in ['<foo>', 'bar&bar', '"baz"']
             i += 1
@@ -189,13 +189,13 @@
             else
                 color = '#FFF'
             end
-        ?>
+        ?}
            <tr bgcolor="#{color}">
             <td>${item}</td>
            </tr>
-        <?rb
+        {?
         end
-        ?>
+        ?}
           </table>
          </body>
         </html>
@@ -278,25 +278,25 @@
         <?py #endfor ?>
         </ul>
    "ruby": |
-        <?rb
+        {?
         users = [
             {'name'=>'Foo', 'email'=>'foo@mail.com'},
             {'name'=>'Bar',},
             {'name'=>'Baz', 'email'=>'baz@mail.org'},
         ]
-        ?>
+        ?}
         <ul>
-        <?rb i = 0 ?>
-        <?rb for user in users ?>
-        <?rb     i += 1 ?>
-          <li><?rb
+        {? i = 0 ?}
+        {? for user in users ?}
+        {?     i += 1 ?}
+          <li>{?
             if user['email']
-        ?><a href="mailto:${user['email']}">${user['name']}</a><?rb
+        ?}<a href="mailto:${user['email']}">${user['name']}</a>{?
             else
-        ?>${user['name']}<?rb
+        ?}${user['name']}{?
             end
-        ?></li>
-        <?rb end ?>
+        ?}</li>
+        {? end ?}
         </ul>
   source*:
    "python": |
@@ -370,9 +370,9 @@
    "ruby": |
         ${'title'}
         <ul>
-        <?rb for i in 1...4 ?>
+        {? for i in 1...4 ?}
         ${i}
-        <?rb end ?>
+        {? end ?}
         </ul>
   source*:
    "python": |
@@ -431,19 +431,19 @@
         #endfor
            ?>
     ruby: |4
-          <?rb
+          {?
         i = 0
         for item in ['a', 'b', 'c']
             i += 1
-           ?>
+           ?}
         <p>
-            <?rb if i % 2 == 1 ?>
+            {? if i % 2 == 1 ?}
         <span>#{item}</span>
-            <?rb end ?>
+            {? end ?}
         </p>
-          <?rb
+          {?
         end
-           ?>
+           ?}
   source*:
    "python": |5
           
@@ -525,10 +525,10 @@
         i = #{value}^
         <?py #end ?>^
    "ruby": |
-        <?rb for value in 0...3 ?>^
+        {? for value in 0...3 ?}^
         #{value}^
         i = #{value}^
-        <?rb end ?>^
+        {? end ?}^
   source*:
    "python": |
         for value in range(0,3):
@@ -574,14 +574,14 @@
         </p>^
    "ruby": |
         <p>^
-        <?rb^
+        {?^
         for value in 0...3^
-        ?>^
+        ?}^
         i = #{value}^
         #{value}^
-        <?rb^
+        {?^
         end^
-        ?>^
+        ?}^
         </p>^
   source*:
    "python": |
@@ -640,9 +640,9 @@
         </ul>
    "ruby": |
         <ul>
-        <?rb for i in 0..2 ?>
+        {? for i in 0..2 ?}
         <li>#{i}</li>
-        <?rb end ?>
+        {? end ?}
         </ul>
   source*:
    "python": |
@@ -671,9 +671,9 @@
         #{i}
         <?py #end ?>
    "ruby": |
-        <?rb for i in 0..2 ?>
+        {? for i in 0..2 ?}
         #{i}
-        <?rb end ?>
+        {? end ?}
   source*:
    "python": |
         _buf = []
@@ -863,7 +863,7 @@
         </ul>
    "ruby": |
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
-        <?rb #@ARGS name, x,y,z ?>
+        {? #@ARGS name, x,y,z ?}
         <ul>
         <span>hello #{name}</span>
         <span>hello #{name2}</span>
@@ -906,14 +906,14 @@
    "python": |
    "ruby": |
         <table>
-        <?rb i = 0 ?>
-        <?rb for item in @items ?>
-        <?rb   i += 1 ?>
+        {? i = 0 ?}
+        {? for item in @items ?}
+        {?   i += 1 ?}
           <tr>
             <td>#{i}</td>
             <td>${item}</td>
           </tr>
-        <?rb end ?>
+        {? end ?}
         </table>
   source*:
    "python": |
@@ -970,15 +970,15 @@
         <?PY #endfor ?>
         </select>
    "ruby": |
-        <?RB states = { :CA => "California", ?>
-        <?RB            :NY => "New York", ?>
-        <?RB            :FL => "Florida", } ?>
-        <?rb chk = { params['state'] => ' checked="checked"' } ?>
+        {?? states = { :CA => "California", ??}
+        {??            :NY => "New York", ??}
+        {??            :FL => "Florida", } ??}
+        {? chk = { params['state'] => ' checked="checked"' } ?}
         <select name="state">
           <option value="">-</option>
-        <?RB for code in states.keys.sort_by{|k| k.to_s} ?>
+        {?? for code in states.keys.sort_by{|k| k.to_s} ??}
           <option value="#{{code}}"#{chk[#{{code.inspect}}]}>${{states[code]}}</option>
-        <?RB end ?>
+        {?? end ??}
         </select>
    "perl": |
 	<?PL my $states = { "CA" => "California", ?>
@@ -1026,7 +1026,7 @@
         states = { :CA => "California",
                    :NY => "New York",
                    :FL => "Florida", }
-         _buf << %Q`<?rb chk = { params['state'] => ' checked="checked"' } ?>
+         _buf << %Q`{? chk = { params['state'] => ' checked="checked"' } ?}
         <select name="state">
           <option value="">-</option>\n`
         for code in states.keys.sort_by{|k| k.to_s}
@@ -1072,7 +1072,7 @@
           <option value="NY"#{chk.get('NY', '')}>New York</option>
         </select>
    "ruby": |
-        <?rb chk = { params['state'] => ' checked="checked"' } ?>
+        {? chk = { params['state'] => ' checked="checked"' } ?}
         <select name="state">
           <option value="">-</option>
           <option value="CA"#{chk[:CA]}>California</option>
@@ -1113,10 +1113,10 @@
 	#{{link_to('"Show '+_P("item['name']")+'"', '/items/show/'+_p("item['id']"))}}
 	#{{escape('<b>'+_P('item["name"]')+'</b>')}}
     "ruby": |
-        <?RB def self.link_to(label, url) ?>
-	<?RB     require 'cgi' ?>
-	<?RB     return '<a href="%s">%s</a>' % [CGI::escape(url).gsub(/%2F/,'/'), label] ?>
-	<?RB end ?>
+        {?? def self.link_to(label, url) ??}
+	{??     require 'cgi' ??}
+	{??     return '<a href="%s">%s</a>' % [CGI::escape(url).gsub(/%2F/,'/'), label] ??}
+	{?? end ??}
 	#{{link_to('<b>Create</b>', '/items/create')}}
 	#{{link_to('"Show '+_P('item["name"]')+'"', '/items/show/'+_p('item["id"]'))}}
 	#{{escape('<b>'+_P('item["name"]')+'</b>')}}

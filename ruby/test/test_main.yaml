@@ -9,12 +9,12 @@
   options: '-wz'
   input: |
 	<ul>
-	<?rb i = 0 ?>
-	<?rb for item in items ?>
-	<?rb     i += 1 ?>
-	<?rb     color = i % 2 == 0 ? 'FFF' : 'FCF' ?>
+	{? i = 0 ?}
+	{? for item in items ?}
+	{?     i += 1 ?}
+	{?     color = i % 2 == 0 ? 'FFF' : 'FCF' ?}
 	 <li>${item}</li>
-	<?rb end ?>
+	{? end ?}
 	</ul>
   expected: |
 	.test.rbhtml: Syntax OK
@@ -25,12 +25,12 @@
   options: '-wz'
   input: |
 	<ul>
-	<?rb i = 0 ?>
-	<?rb foreach item in @items ?>
-	<?rb     i += 1 ?>
-	<?rb     color = i % 2 == 0 ? 'FFF' : 'FCF' ?>
+	{? i = 0 ?}
+	{? foreach item in @items ?}
+	{?     i += 1 ?}
+	{?     color = i % 2 == 0 ? 'FFF' : 'FCF' ?}
 	 <li>${item}</li>
-	<?rb end ?>
+	{? end ?}
 	</ul>
   expected: |
 	.test.rbhtml:3: syntax error, unexpected kIN, expecting $end
@@ -43,12 +43,12 @@
   options: '-wz'
   input: |
 	<ul>
-	<?rb i = 0 ?>
-	<?rb for item in @items ?>
-	<?rb     i += 1 ?>
-	<?rb     color = i % 2 == 0 ? 'FFF' : 'FCF' ?>
+	{? i = 0 ?}
+	{? for item in @items ?}
+	{?     i += 1 ?}
+	{?     color = i % 2 == 0 ? 'FFF' : 'FCF' ?}
 	 <li>${item}</li>
-	<?rb ende ?>
+	{? ende ?}
 	</ul>
   expected: |
 	.test.rbhtml:8: syntax error, unexpected $end, expecting kEND

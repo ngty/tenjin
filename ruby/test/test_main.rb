@@ -21,33 +21,33 @@ end
 
 INPUT = <<'END'
 <ul>
-<?rb for item in ['<a&b>', '["c",'+"'d']"] ?>
+{? for item in ['<a&b>', '["c",'+"'d']"] ?}
   <li>#{item}
       ${item}</li>
-<?rb end ?>
+{? end ?}
 </ul>
 END
 
 INPUT2 = <<'END'
 <ul>
-<?rb for item in ['<a&b>', '["c",'+"'d']"] ?>
+{? for item in ['<a&b>', '["c",'+"'d']"] ?}
   <li>#{item}
       ${item}</li>
-<?rb end ?>
+{? end ?}
 </ul>
 END
 INPUT2.gsub!(/\n/, "\r\n")
 
 INPUT3 = <<'END'
-<?rb
+{?
 #title = _context['title']
 #items = _context.items
-?>
+?}
 <h1>#{@title}</h1>
 <ul>
-<?rb for item in @items ?>
+{? for item in @items ?}
   <li>#{item}</li>
-<?rb end ?>
+{? end ?}
 </ul>
 END
 
@@ -204,7 +204,7 @@ class TenjinMainTest < Test::Unit::TestCase
 
 #    def test_help_and_version()  # -hVc
 #        @options  = "-hVc"
-#        @input    = "<?rb foo() ?>"
+#        @input    = "{? foo() ?}"
 #        app = Tenjin::Main.new(['rbtenjin'])
 #        @expected = app.version() + "\n" + app.usage('rbtenjin')
 #        _test()
@@ -263,7 +263,7 @@ class TenjinMainTest < Test::Unit::TestCase
 
   INPUT_FOR_RETRIEVE = <<END
 <div>
-<?rb if list ?>
+{? if list ?}
   <table>
     <thead>
       <tr>
@@ -271,17 +271,17 @@ class TenjinMainTest < Test::Unit::TestCase
       </tr>
     </thead>
     </tbody>
-    <?rb i = 0 ?>
-    <?rb for item in list ?>
-\t<?rb i += 1 ?>
+    {? i = 0 ?}
+    {? for item in list ?}
+\t{? i += 1 ?}
       <tr bgcolor="${i % 2 ? "#FFCCCC" : "#CCCCFF"}">
 \t<td>\#{i}</td>
 \t<td>${item}</td>
       </tr>
-    <?rb end ?>
+    {? end ?}
     </tbody>
   </table>
-<?rb end ?>
+{? end ?}
 </div>
 END
 
@@ -652,15 +652,15 @@ END
 <html>
   <body>
 #{@_content}
-<?rb import(:footer) ?>
+{? import(:footer) ?}
   </body>
 </html>
 END
     body = <<'END'
 <ul>
-<?rb for item in %w[A B C] ?>
+{? for item in %w[A B C] ?}
   <li>${item}</li>
-<?rb end ?>
+{? end ?}
 </ul>
 END
     footer = <<'END'
@@ -692,7 +692,7 @@ END
       File.write("tmpl9/user/footer.rbhtml", footer)
     # body
       @options  = "--path=.,tmpl9/user,tmpl9 --postfix=.rbhtml --layout=:layout"
-      @input    = "<?rb import(:body) ?>"
+      @input    = "{? import(:body) ?}"
       @expected = expected
       _test()
     # footer
@@ -706,18 +706,18 @@ END
   def test_preprocessor  # -P --preprocess
     @options  = "-P"
     @input = <<'END'
-<?RB states = { "CA"=>"California", ?>
-<?RB            "NY"=>"New York", ?>
-<?RB            "FL"=>"Florida", } ?>
-<?rb chk = { @user['state'] => ' checked="checked"' } ?>
+{?? states = { "CA"=>"California", ??}
+{??            "NY"=>"New York", ??}
+{??            "FL"=>"Florida", } ??}
+{? chk = { @user['state'] => ' checked="checked"' } ?}
 <select name="state">
-<?RB for code in states.keys.sort ?>
+{?? for code in states.keys.sort ??}
   <option value="#{{code}}"#{chk[#{{code.inspect}}]}>${{states[code]}}</option>
-<?RB end ?>
+{?? end ??}
 </select>
 END
     script = <<'END'
-<?rb chk = { @user['state'] => ' checked="checked"' } ?>
+{? chk = { @user['state'] => ' checked="checked"' } ?}
 <select name="state">
   <option value="CA"#{chk["CA"]}>California</option>
   <option value="FL"#{chk["FL"]}>Florida</option>

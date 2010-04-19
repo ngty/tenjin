@@ -129,14 +129,14 @@ module Tenjin
     ##
     ## ex. list.rbhtml
     ##   <html><body>
-    ##     <h1><?rb start_capture(:title) do ?>Document Title<?rb end ?></h1>
-    ##     <?rb start_capture(:content) ?>
+    ##     <h1>{? start_capture(:title) do ?}Document Title{? end ?}</h1>
+    ##     {? start_capture(:content) ?}
     ##     <ul>
-    ##      <?rb for item in list do ?>
+    ##      {? for item in list do ?}
     ##       <li>${item}</li>
-    ##      <?rb end ?>
+    ##      {? end ?}
     ##     </ul>
-    ##     <?rb stop_capture() ?>
+    ##     {? stop_capture() ?}
     ##   </body></html>
     ##
     ## ex. layout.rbhtml
@@ -148,7 +148,7 @@ module Tenjin
     ##    <body>
     ##     <h1>${@title}</h1>
     ##     <div id="content">
-    ##      <?rb echo(@content) ?>
+    ##      {? echo(@content) ?}
     ##     </div>
     ##    </body>
     ##   </html>
@@ -291,11 +291,11 @@ module Tenjin
   ##    <body>
   ##     <h1>${@title}</h1>
   ##     <ul>
-  ##     <?rb i = 0 ?>
-  ##     <?rb for item in @items ?>
-  ##     <?rb   i += 1 ?>
+  ##     {? i = 0 ?}
+  ##     {? for item in @items ?}
+  ##     {?   i += 1 ?}
   ##       <li>#{i} : ${item}</li>
-  ##     <?rb end ?>
+  ##     {? end ?}
   ##     </ul>
   ##    </body>
   ##   </html>
@@ -389,16 +389,16 @@ module Tenjin
     end
 
     def self.compile_stmt_pattern(pi)
-      return /<\?#{pi}( |\t|\r?\n)(.*?) ?\?>([ \t]*\r?\n)?/m
+      return /\{\?#{pi}( |\t|\r?\n)(.*?) ?#{pi}\?\}([ \t]*\r?\n)?/m
     end
 
-    STMT_PATTERN = self.compile_stmt_pattern('rb')
+    STMT_PATTERN = self.compile_stmt_pattern('')
 
     def stmt_pattern
       STMT_PATTERN
     end
 
-    ## parse statements ('<?rb ... ?>')
+    ## parse statements ('{? ... ?}')
     def parse_stmts(input)
       return unless input
       is_bol = true
@@ -635,7 +635,7 @@ module Tenjin
 
     protected
 
-    STMT_PATTERN = compile_stmt_pattern('RB')
+    STMT_PATTERN = compile_stmt_pattern('\\?')
 
     def stmt_pattern
       return STMT_PATTERN
@@ -677,9 +677,9 @@ module Tenjin
   ## result:
   ##   $ cat foo.rbhtml
   ##   <ul>
-  ##   <?rb for item in items ?>
+  ##   {? for item in items ?}
   ##     <li>#{item}</li>
-  ##   <?rb end ?>
+  ##   {? end ?}
   ##   </ul>
   ##   $ ruby foo.rb
   ##    _buf.push('<ul>
@@ -782,9 +782,9 @@ module Tenjin
   ##
   ## ex. file 'ex_list.rbhtml'
   ##   <ul>
-  ##   <?rb for item in @items ?>
+  ##   {? for item in @items ?}
   ##     <li>#{item}</li>
-  ##   <?rb end ?>
+  ##   {? end ?}
   ##   </ul>
   ##
   ## ex. file 'ex_layout.rbhtml'
@@ -792,7 +792,7 @@ module Tenjin
   ##    <body>
   ##     <h1>${@title}</li>
   ##   #{@_content}
-  ##   <?rb import 'footer.rbhtml' ?>
+  ##   {? import 'footer.rbhtml' ?}
   ##    </body>
   ##   </html>
   ##

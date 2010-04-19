@@ -99,9 +99,9 @@ class TenjinTemplateTest < Test::Unit::TestCase
     return if ENV['TEST'] && ENV['TEST'] != 'filename1'
     input = <<'END'
 <ul>
-<?rb for i in 0...3 ?>
+{? for i in 0...3 ?}
 <li>#{i}</li>
-<?rb end ?>
+{? end ?}
 </ul>
 END
     filename = 'test_filename1.rbhtml'

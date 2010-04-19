@@ -61,7 +61,7 @@
             <body>
               <h1>${@title}</h1>
               <div id="sidemenu">
-          <?rb import :sidemenu ?>
+          {? import :sidemenu ?}
               </div>
               <div id="maincontent">
           #{@_content}
@@ -115,10 +115,10 @@
           </ul>
        "ruby": |
           <ul>
-          <?rb for item in @items ?>
+          {? for item in @items ?}
             <li>${item['name']}
                 (${item['email']})</li>
-          <?rb end ?>
+          {? end ?}
           </ul>
        "perl": |
           <ul>
@@ -199,7 +199,7 @@
           </form>
        "ruby": |
           <form action="create" method="post">
-          <?rb import :form ?>
+          {? import :form ?}
             <input type="submit" value="Create" />
           </form>
        "perl": |
@@ -505,11 +505,11 @@
             <h1>${@title}</h1>
         
             <div id="main_content">
-            <?rb echo(@main_content) ?>
+            {? echo(@main_content) ?}
             </div>
         
             <div id="footer">
-            <?rb echo(@footer) ?>
+            {? echo(@footer) ?}
             </div>
         
           </body>
@@ -595,25 +595,25 @@
    "ruby": |
         <html>
           <body>
-            <h1><?rb start_capture(:title) do ?>Capturing Example<?rb end ?></h1>
+            <h1>{? start_capture(:title) do ?}Capturing Example{? end ?}</h1>
         
-            <?rb start_capture(:main_content) ?>
+            {? start_capture(:main_content) ?}
             <table>
-              <?rb @items.each_with_index do |item, i| ?>
-              <?rb   color = i % 2 == 0 ? '#FFCCCC' : '#CCCCFF' ?>
+              {? @items.each_with_index do |item, i| ?}
+              {?   color = i % 2 == 0 ? '#FFCCCC' : '#CCCCFF' ?}
               <tr bgcolor="#{color}">
                 <td>${item}</td>
               </tr>
-              <?rb end ?>
+              {? end ?}
             </table>
-            <?rb stop_capture() ?>
+            {? stop_capture() ?}
         
-            <?rb start_capture() ?>
+            {? start_capture() ?}
             <hr>
             <address>
               <a href="mailto:webmaster@example.com">webmaster@example.com</a>
             </address>
-            <?rb @footer = stop_capture() ?>
+            {? @footer = stop_capture() ?}
         
           </body>
         </html>
@@ -743,20 +743,20 @@
          <body>
         
           <!-- HEADER -->
-        <?rb unless captured_as('header_part') ?>
+        {? unless captured_as('header_part') ?}
            <img src="img/logo.png" alt="logo" ?>
-        <?rb end ?>
+        {? end ?}
           <!-- /HEADER -->
         
           <!-- CONTENT -->
-        <?rb _buf << @content_part ?>
+        {? _buf << @content_part ?}
           <!-- /CONTENT -->
         
           <!-- FOOTER -->
-        <?rb unless captured_as('footer_part') ?>
+        {? unless captured_as('footer_part') ?}
            <hr />
            <em>webmaster@example.com</em>
-        <?rb end ?>
+        {? end ?}
           <!-- /FOOTER -->
           
          </body>
@@ -819,14 +819,14 @@
         </address>
         <?py stop_capture() ?>
    "ruby": |
-        <?rb _context['_layout'] = 'baselayout.rbhtml' ?>
+        {? _context['_layout'] = 'baselayout.rbhtml' ?}
         
-        <?rb start_capture('footer_part') ?>
+        {? start_capture('footer_part') ?}
         <address style="text-align:right">
           copyright&copy; 2007 kuwata-lab all rights reserved<br />
           <a href="webmaster&#64;kuwata-lab.com">webmaster&#64;kuwata-lab.com</a>
         </address>
-        <?rb stop_capture() ?>
+        {? stop_capture() ?}
    "perl": |
         <?pl $_context->{_layout} = 'baselayout.plhtml'; ?>
         
@@ -858,15 +858,15 @@
         </ul>
         <?py stop_capture() ?>
    "ruby": |
-        <?rb @_layout = 'customlayout.rbhtml' ?>
+        {? @_layout = 'customlayout.rbhtml' ?}
         
-        <?rb start_capture(:content_part) ?>
+        {? start_capture(:content_part) ?}
         <ul>
-        <?rb for item in @items ?>
+        {? for item in @items ?}
           <li>${item}</li>
-        <?rb end ?>
+        {? end ?}
         </ul>
-        <?rb stop_capture() ?>
+        {? stop_capture() ?}
    "perl": |
         <?pl $_context->{_layout} = 'customlayout.plhtml'; ?>
         
@@ -1094,9 +1094,9 @@
           <input type="submit" value="Create" />
         </form>
    "ruby": |
-        <?rb @title = 'Create Account' ?>
+        {? @title = 'Create Account' ?}
         <form action="create" method="post">
-        <?rb import(:form) ?>
+        {? import(:form) ?}
           <input type="submit" value="Create" />
         </form>
    "perl": |
@@ -1197,10 +1197,10 @@
    "ruby": |
         <html>
           <body>
-        <?rb if @title ?>
+        {? if @title ?}
             <h1>${@title}</h1>
-        <?rb end ?>
-        <?rb _buf << @_content ?>
+        {? end ?}
+        {? _buf << @_content ?}
           </body>
         </html>
    "perl": |
@@ -1230,10 +1230,10 @@
         <?py _buf.append(_content) ?>
         </div>
    "ruby": |
-        <?rb ## use default layout template name ?>
-        <?rb @_layout = true ?>
+        {? ## use default layout template name ?}
+        {? @_layout = true ?}
         <div id="content">
-        <?rb _buf << @_content ?>
+        {? _buf << @_content ?}
         </div>
    "perl": |
         <?pl ## use default layout template name ?>
@@ -1257,9 +1257,9 @@
         bar
         baz
    "ruby": |
-        <?rb @title = 'Changing Layout Template Test' ?>
-        <?rb ## specify layout template name ?>
-        <?rb @_layout = 'customlayout.rbhtml' ?>
+        {? @title = 'Changing Layout Template Test' ?}
+        {? ## specify layout template name ?}
+        {? @_layout = 'customlayout.rbhtml' ?}
         foo
         bar
         baz
@@ -1309,9 +1309,9 @@
         [base] locals().get('y1') = #{repr(locals().get('y1'))}
         [base] locals().get('y2') = #{repr(locals().get('y2'))}
    "ruby": |
-        <?rb @x1 = 10 ?>
-        <?rb x2 = 20 ?>
-        <?rb import('part.rbhtml') ?>
+        {? @x1 = 10 ?}
+        {? x2 = 20 ?}
+        {? import('part.rbhtml') ?}
         [base] @y1 = #{@y1.inspect}
         [base] @y2 = #{@y2.inspect}
 	[base] local_variables() = #{local_variables().inspect()}
@@ -1334,8 +1334,8 @@
         [part] @x1 = #{@x1.inspect}
         [part] @x2 = #{@x2.inspect}
         [part] local_variables = #{local_variables().inspect}
-        <?rb @y1 = 30 ?>
-        <?rb y2 = 40 ?>
+        {? @y1 = 30 ?}
+        {? y2 = 40 ?}
    "perl": |
         [part] _context->{x1} = '[=$_context->{x1}=]'
         [part] _context->{x2} = '[=$_context->{x2}=]'
@@ -1383,7 +1383,7 @@
         a = #{repr(a)}
         b = #{repr(b)}
    "ruby": |
-        <?rb #@ARGS a ?>
+        {? #@ARGS a ?}
         a = #{a}
         b = #{b}
    "perl": |
@@ -1429,7 +1429,7 @@
 	</p>
     "ruby": |
 	<p>
-	<?rb #@ARGS x,y  ,  z?>
+	{? #@ARGS x,y  ,  z?}
 	  x = #{x}, y = #{y}, z = #{z}
 	</p>
   script1*:
@@ -1464,7 +1464,7 @@
 	</p>
     "ruby": |
 	<p>
-	<?rb #@ARGS ?>
+	{? #@ARGS ?}
 	  x = #{x}, y = #{y}, z = #{z}
 	</p>
   script2*:
@@ -1507,7 +1507,7 @@
         <html>
           <body>
         #{@_content}
-        <?rb import(:footer) ?>
+        {? import(:footer) ?}
           </body>
         </html>
    "perl": |
@@ -1534,9 +1534,9 @@
         </ul>
    "ruby": |
         <ul>
-        <?rb for item in @items ?>
+        {? for item in @items ?}
           <li>${item}</li>
-        <?rb end ?>
+        {? end ?}
         </ul>
    "perl": |
         <ul>
@@ -1574,8 +1574,8 @@
         <?xml version="1.0" ?>
         <html xml:lang="en">
           <body>
-        <?rb _buf << @_content ?>
-        <?rb import(:footer) ?>
+        {? _buf << @_content ?}
+        {? import(:footer) ?}
           </body>
         </html>
    "perl": |
@@ -1604,9 +1604,9 @@
         </table>
    "ruby": |
         <table>
-        <?rb for item in @items ?>
+        {? for item in @items ?}
           <tr><td>${item}</td></tr>
-        <?rb end ?>
+        {? end ?}
         </table>
    "perl": |
         <table>
@@ -1808,15 +1808,15 @@
         <?PY #endfor ?>
         </select>
     "ruby": |
-        <?RB states = { :CA => "California", ?>
-        <?RB            :NY => "New York",   ?>
-        <?RB            :FL => "Florida", }  ?>
-        <?rb chk = { @params['state'] => ' checked="checked"' } ?>
+        {?? states = { :CA => "California", ??}
+        {??            :NY => "New York",   ??}
+        {??            :FL => "Florida", }  ??}
+        {? chk = { @params['state'] => ' checked="checked"' } ?}
         <select name="state">
           <option value="">-</option>
-        <?RB for code in states.keys.sort_by{|c| c.to_s} ?>
+        {?? for code in states.keys.sort_by{|c| c.to_s} ??}
           <option value="#{{code}}"#{chk[#{{code.inspect}}]}>${{states[code]}}</option>
-        <?RB end ?>
+        {?? end ??}
         </select>
     "perl": |
         <?PL my $states = { "CA"=>"California", ?>
@@ -1854,9 +1854,9 @@
           <input type="submit" value="${{label}}">
         </form>
     "ruby": |
-        <?RB label = '"Create"' ?>
+        {?? label = '"Create"' ??}
         <form action="#{{@action}}">
-          <?rb import(:form) ?>
+          {? import(:form) ?}
           <input type="submit" value="${{label}}">
         </form>
     "perl": |
@@ -1881,8 +1881,8 @@
         </form>
     "ruby": |
         <form action="#{{@action}}">
-          <?RB label = '"Update"' ?>
-          <?RB import(:form) ?>
+          {?? label = '"Update"' ??}
+          {?? import(:form) ??}
           <input type="submit" value="${{label}}">
         </form>
     "perl": |
@@ -1910,7 +1910,7 @@
         <html>
           <body>
             <h1>${@title}</h1>
-        <?rb echo(@_content) ?>
+        {? echo(@_content) ?}
           </body>
         </html>
     "perl": |
@@ -2045,12 +2045,12 @@
     "python": |
 	## TODO (index.pyhtml)
     "ruby": |
-        <?rb @val = 10 ?>
-	<?rb import "show.rbhtml" ?>
-	<?rb @val = 20 ?>
-	<?rb import "show.rbhtml" ?>
-	<?rb @val = 30 ?>
-	<?rb import "show.rbhtml" ?>
+        {? @val = 10 ?}
+	{? import "show.rbhtml" ?}
+	{? @val = 20 ?}
+	{? import "show.rbhtml" ?}
+	{? @val = 30 ?}
+	{? import "show.rbhtml" ?}
     "perl": |
 	## TODO (index.plhtml)
     "js": |

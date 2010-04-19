@@ -234,13 +234,13 @@ class TenjinEngineTest < Test::Unit::TestCase
       assert_text_equal(hash['expected_html'], actual)
       ##
       sleep(1)
-      content_html = hash['content_html'] + "<?rb @_layout = :layout_xhtml ?>\n"
+      content_html = hash['content_html'] + "{? @_layout = :layout_xhtml ?}\n"
       File.write(fname.call('content_html'), content_html)
       actual = engine.render(:content_html, context)
       assert_text_equal(hash['expected_xhtml'], actual)
       ##
       sleep(1)
-      content_html = hash['content_html'] + "<?rb @_layout = false ?>\n"
+      content_html = hash['content_html'] + "{? @_layout = false ?}\n"
       File.write(fname.call('content_html'), content_html)
       actual = engine.render(:content_html, context)
       assert_text_equal(hash['expected_nolayout'], actual)
